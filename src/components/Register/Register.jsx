@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProviders/AuthProviders";
 const Register = () => {
+  const { googleProvider, googleLogin } = useContext(AuthContext);
   const handleRegister = (e) => {
     e.preventDefault();
+    googleLogin()
+      .then((result) => console.log(result.user))
+      .catch((error) => console.log(error));
   };
   return (
     <div>
@@ -73,8 +79,8 @@ const Register = () => {
                 <div className="text-center">
                   <h2 className="text-2xl font-semibold">Join Us Using</h2>
                   <div>
-                    <button>
-                      <FcGoogle className="text-5xl shadow-lg rounded-full" />
+                    <button onClick={handleRegister}>
+                      <FcGoogle className="text-5xl shadow-lg rounded-full hover:border hover:border-blue-500" />
                     </button>
                   </div>
                 </div>
