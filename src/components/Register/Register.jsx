@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
-import { AuthContext } from "../../AuthProviders/AuthProviders";
+import { BsGithub } from "react-icons/bs";
+import UseAuth from "../../utilities/UseAuth";
 const Register = () => {
-  const { googleProvider, googleLogin } = useContext(AuthContext);
-  const handleRegister = (e) => {
+  const { googleLogin, githubLogin } = UseAuth();
+  const handleRegister = (e, media) => {
     e.preventDefault();
-    googleLogin()
+    console.log(media());
+    media()
       .then((result) => console.log(result.user))
       .catch((error) => console.log(error));
   };
@@ -79,8 +80,11 @@ const Register = () => {
                 <div className="text-center">
                   <h2 className="text-2xl font-semibold">Join Us Using</h2>
                   <div>
-                    <button onClick={handleRegister}>
+                    <button onClick={(e) => handleRegister(e, googleLogin)}>
                       <FcGoogle className="text-5xl shadow-lg rounded-full hover:border hover:border-blue-500" />
+                    </button>
+                    <button onClick={(e) => handleRegister(e, githubLogin)}>
+                      <BsGithub className="text-5xl shadow-lg rounded-full hover:border hover:border-blue-500" />
                     </button>
                   </div>
                 </div>
